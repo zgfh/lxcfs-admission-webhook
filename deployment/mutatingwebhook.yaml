@@ -1,11 +1,13 @@
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: mutating-lxcfs-admission-webhook-cfg
   labels:
     app: lxcfs-admission-webhook
 webhooks:
-  - name: mutating.lxcfs-admission-webhook.aliyun.com
+  - name: mutating.lxcfs-admission-webhook.github.com
+    admissionReviewVersions:
+    - v1beta1
     clientConfig:
       service:
         name: lxcfs-admission-webhook-svc
@@ -20,3 +22,5 @@ webhooks:
     namespaceSelector:
       matchLabels:
         lxcfs-admission-webhook: enabled
+    failurePolicy: Fail
+    sideEffects: None
